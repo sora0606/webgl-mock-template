@@ -1,13 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 import vertex from "./shader/vertex.glsl"
 import fragment from "./shader/fragment.glsl"
 
-import GUI from "lil-gui";
-import { gsap } from 'gsap';
+import dat from "dat.gui";
 
 export default class Sketch {
     constructor(opstions) {
@@ -36,11 +33,6 @@ export default class Sketch {
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.time = 0;
 
-        this.dracoLoader = new DRACOLoader();
-        this.dracoLoader.setDecoderPath('https://rawgithubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco');
-        this.gltf = new GLTFLoader();
-        this.gltf.setDRACOLoader(this.dracoLoader);
-
         this.isPlaying = true;
 
         this.addObjects();
@@ -55,7 +47,8 @@ export default class Sketch {
         this.settings = {
             progress: 0,
         };
-        this.gui = new GUI();
+
+        this.gui = new dat.GUI();
         this.gui.add(this.settings, "progress", 0.0, 1.0, 0.01);
     }
 
